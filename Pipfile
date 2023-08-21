@@ -1,9 +1,16 @@
 [[source]]
-url = "http://pypi.douban.com/simple/"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple/"
 verify_ssl = false
 name = "pip_conf_index_global"
 
 [packages]
+fastapi = "*"
+uvicorn = "*"
+sqlmodel = "*"
+sqlalchemy = "*"
+install = "*"
+databases = {version = "*", extras = ["sqlite"]}
+fastapi-jwt-auth = "*"
 
 [dev-packages]
 
