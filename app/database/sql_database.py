@@ -1,18 +1,25 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from sqlmodel import SQLModel, create_engine
+from sqlmodel import Session, SQLModel, create_engine
+from app.models.user import User
 
-# 根据您的数据库配置，替换以下字符串
-database_url = "sqlite:///./mydatabase.db"
+DATABASE_URL = "sqlite:///./app.db"
 
-# 创建数据库引擎
-engine = create_engine(database_url)
-
-# 创建会话工厂
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+engine = create_engine(DATABASE_URL)
 
 
-# 创建基本模型类
-class MyBase(SQLModel):
-    class Config:
-        orm_mode = True
+def get_session():
+    with Session(engine) as session:
+        yield session
+
+
+def create_user(user: User) -> User:
+    with get_session() as session:
+        session.add(user)
+        session.commit()
+        session.refresh(user)
+    return user
+
+
+def get_user(user_id: int) -> User:
+    with get_session() as session:
+        user = session.get(User, user_id)
+    return user

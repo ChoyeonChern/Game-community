@@ -11,6 +11,8 @@ sqlalchemy = "*"
 install = "*"
 databases = {version = "*", extras = ["sqlite"]}
 fastapi-jwt-auth = "*"
+python-jose = {version = "*", extras = ["cryptography"]}
+passlib = "*"
 
 [dev-packages]
 

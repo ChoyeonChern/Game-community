@@ -1,9 +1,10 @@
 # fastapi main
+import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.models import user
-from app.database import engine
-from app.api import login
+from app.database.sql_database import engine
+from app.api import auth
 from app.config import settings
 
 
@@ -26,11 +27,5 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-app.include_router(post.router)
-app.include_router(user.router)
-
-app.include_router(auth.router)
-app.include_router(vote.router)
-# @app.get("/")
-# def root():
-#     return {"message": "Hello World"}
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
